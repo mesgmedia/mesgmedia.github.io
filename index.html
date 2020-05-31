@@ -1,34 +1,28 @@
-﻿<!DOCTYPE html>
-<html>
+﻿---
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome file</title>
-  <link rel="stylesheet" href="https://stackedit.io/style.css" />
-</head>
 
-<body class="stackedit">
-  <div class="stackedit__html"><h1 id="envio-de-sms-via-web">Envio de SMS via Web</h1>
+---
+
+<p><img src="http://www.mesg.com.br/wp-content/uploads/2020/05/mesglogo.png" alt="Image"></p>
+<h1 id="envio-de-sms-via-web">Envio de SMS via Web</h1>
 <p>A interação com a ferramenta se dá por requisições HTTP ao endereço</p>
 <p><code>http://api.mesg.com.br/&lt;função&gt;</code></p>
 <p>Estão disponíveis as seguintes funções:</p>
-<p>envio de mensagens</p>
 <ul>
-<li><strong>simplesSMS</strong> - simples para um celular apenas, função</li>
-<li><strong>multiSMS</strong> - simples para múltiplos celulares</li>
-<li><strong>multiMsgMultiSMS</strong> - diferentes mensagens para múltiplos celulares</li>
-<li><strong>saldoSMS</strong> - consultar crédito</li>
+<li>envio de mensagens simples para um celular apenas, função <strong>simplesSMS</strong></li>
+<li>envio de mensagens simples para múltiplos celulares, função <strong>multiSMS</strong></li>
+<li>envio de diferentes mensagens para múltiplos celulares, função <strong>multiMsgMultiSMS</strong></li>
+<li>consultar crédito, função <strong>saldoSMS</strong></li>
 </ul>
 <h1 id="envio-de-mensagem-simples">Envio de Mensagem simples</h1>
 <p>Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular</p>
 <p>Função  <strong>simplesSMS</strong></p>
 <h3 id="parâmetros">Parâmetros</h3>
 <ul>
-<li><code>user</code>  login do usuário na plataforma Mesg</li>
+<li><code>user</code> login do usuário na plataforma Mesg</li>
 <li><code>password</code> senha deste usuário</li>
 <li><code>detinatario</code> número a ser enviadono no formato ddd+número</li>
-<li><code>msg</code>texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar <br></li>
+<li><code>msg</code> texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar <code>&lt;br&gt;</code></li>
 </ul>
 <h3 id="exemplo-de-url">Exemplo de URL</h3>
 <pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888&amp;msg=Titulo&lt;br&gt;Nova linha
@@ -69,6 +63,7 @@
 </tr>
 </tbody>
 </table><h1 id="envio-de-mensagem-simples-para-múltiplos-celulares">Envio de Mensagem simples Para Múltiplos Celulares</h1>
+<p>Usado para enviar a mesma mensagem para múltiplos celulares</p>
 <p>Função  <strong>multiSMS</strong></p>
 <h3 id="parâmetros-1">Parâmetros</h3>
 <ul>
@@ -116,6 +111,7 @@
 </tr>
 </tbody>
 </table><h1 id="envio-de-múltiplas-mensagens-para-múltiplos-celulares">Envio de Múltiplas mensagens para Múltiplos Celulares</h1>
+<p>Use este opção para enviar mensagens diferentes para números diferentes</p>
 <p>Função  <strong>multiMsgMultiSMS</strong></p>
 <h3 id="parâmetros-2">Parâmetros</h3>
 <ul>
@@ -163,6 +159,7 @@
 </tr>
 </tbody>
 </table><h1 id="saldo-de-mensagens-na-plataforma">Saldo de Mensagens na plataforma</h1>
+<p>Consultar o saldo de mensagens disponíveis na plataforma</p>
 <p>Função  <strong>saldoSMS</strong></p>
 <h3 id="parâmetros-3">Parâmetros</h3>
 <ul>
@@ -203,7 +200,4 @@ requisicao <span class="token operator">=</span> requests<span class="token punc
 <p><a href="https://jbt.github.io/markdown-editor">Editor Online Marckdown</a></p>
 <p><a href="https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf">Sintaxe Markdown Github</a></p>
 <p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></p>
-</div>
-</body>
 
-</html>
