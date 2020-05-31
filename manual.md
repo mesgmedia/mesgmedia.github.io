@@ -18,46 +18,97 @@ Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres par
 
 Função  **simplesSMS**
 
-Parâmetros
+### Parâmetros
 - `user`  login do usuário na plataforma Mesg
 - `password` senha deste usuário
 - `detinatario` número a ser enviadono no formato ddd+número
 - `msg`texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar <br>
 
-Exemplo de URL
+### Exemplo de URL
 ``` 
 http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&destinatario=48988888888&msg=Titulo<br>Nova linha
 ```
 
-## Código de Retorno
+### Resposta de Retorno
 
-First Header | Second Header
------------- | -------------
-Content cell 1 | Content cell 2
-Content column 1 | Content column 2
+Código | Descrição
+------ | -------------
+1      | Usuário ou senha invalido, ou usuário cancelado
+2      | Usuário sem créditos na plataforma
+3      | Celular Inválido
+4      | Mensagem em branco ou com caracteres inválidos
+5      | reservado
+6      | Mensagem enviada
 
 # Envio de Mensagem simples Para Múltiplos Celulares
 
 Função  **multiSMS**
 
-Parâmetros
+### Parâmetros
 - `user`  login do usuário na plataforma Mesg
 - `password` senha deste usuário
 - `detinatario` números a serem enviados, separados por `;` (ponto e vírcula) no formato ddd+número
 - `msg`máximo de 160 caracteres
 
-Exemplo de URL
+### Exemplo de URL
 ``` 
 http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&destinatario=48988888888;48977777777&msg=Mensagem
 ```
 
-## Código de Retorno
+### Resposta de Retorno
 
-First Header | Second Header
------------- | -------------
-Content cell 1 | Content cell 2
-Content column 1 | Content column 2
+Código | Descrição
+------ | -------------
+1      | Usuário ou senha invalido, ou usuário cancelado
+2      | Usuário sem créditos na plataforma
+3      | Celular Inválido
+4      | Mensagem em branco ou com caracteres inválidos
+5      | reservado
+6      | Mensagem enviada	
 
+# Envio de Múltiplas mensagens para Múltiplos Celulares
+
+Função  **multiMsgMultiSMS**
+
+### Parâmetros
+- `user`  login do usuário na plataforma Mesg
+- `password` senha deste usuário
+- `detinatario` números a serem enviados, separados por `/n` (barra n) no formato ddd+número
+- `msg` mensagens a serem enviadas, separadas por `/n` (barra n), máximo de 160 caracteres por mensagem
+
+### Exemplo de URL
+``` 
+http://api.mesg.com.br/multiMsgMultiSMS?user=usuario&password=senha&destinatario=48988888888/n48977777777&msg=Mensagem1/nMensagem2
+```
+### Resposta de Retorno
+Código | Descrição
+------ | -------------
+1      | Usuário ou senha inválido, ou usuário cancelado
+2      | Usuário sem créditos na plataforma
+3      | Quantidade de mensagens e celulares diferentes, por exemplo 3 mensagens para 4 celulares
+4      | Mensagem em branco ou com caracteres inválidos
+5      | reservado
+6      | Mensagem enviada	
+
+
+# Saldo de Mensagens na plataforma
+Função  **saldoSMS**
+
+### Parâmetros
+- `user`  login do usuário na plataforma Mesg
+- `password` senha deste usuário
+
+### Exemplo de URL
+``` 
+http://api.mesg.com.br/saldoSMS?user=usuario&password=senha
+
+```
+
+### Resposta de Retorno
+Código | Descrição
+------ | -------------
+1      | Usuário ou senha inválido, ou usuário cancelado
+2      | Número 2 seguido da quantidade de créditos
 
 ## Exemplo em Python
 necessário uso da biblioteca [requests](
