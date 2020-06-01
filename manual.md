@@ -1,3 +1,6 @@
+![Image](http://www.mesg.com.br/wp-content/uploads/2020/05/mesglogo.png)
+[www.mesg.com.br](http://www.mesg.com.br)
+
 # Envio de SMS via Web
 
 A interação com a ferramenta se dá por requisições HTTP ao endereço
@@ -6,11 +9,10 @@ A interação com a ferramenta se dá por requisições HTTP ao endereço
 
 Estão disponíveis as seguintes funções:
 
-envio de mensagens
-- **simplesSMS** - simples para um celular apenas, função
-- **multiSMS** - simples para múltiplos celulares
-- **multiMsgMultiSMS** - diferentes mensagens para múltiplos celulares
-- **saldoSMS** - consultar crédito
+- envio de mensagens simples para um celular apenas, função **simplesSMS**
+- envio de mensagens simples para múltiplos celulares, função **multiSMS**
+- envio de diferentes mensagens para múltiplos celulares, função **multiMsgMultiSMS**
+- consultar crédito, função **saldoSMS**
 
 # Envio de Mensagem simples 
 
@@ -19,10 +21,10 @@ Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres par
 Função  **simplesSMS**
 
 ### Parâmetros
-- `user`  login do usuário na plataforma Mesg
+- `user` login do usuário na plataforma Mesg
 - `password` senha deste usuário
 - `detinatario` número a ser enviadono no formato ddd+número
-- `msg`texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar <br>
+- `msg` texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar `<br>`
 
 ### Exemplo de URL
 ``` 
@@ -41,6 +43,8 @@ Código | Descrição
 6      | Mensagem enviada
 
 # Envio de Mensagem simples Para Múltiplos Celulares
+
+Usado para enviar a mesma mensagem para múltiplos celulares
 
 Função  **multiSMS**
 
@@ -68,6 +72,8 @@ Código | Descrição
 
 # Envio de Múltiplas mensagens para Múltiplos Celulares
 
+Use este opção para enviar mensagens diferentes para números diferentes
+
 Função  **multiMsgMultiSMS**
 
 ### Parâmetros
@@ -92,6 +98,9 @@ Código | Descrição
 
 
 # Saldo de Mensagens na plataforma
+
+Consultar o saldo de mensagens disponíveis na plataforma
+
 Função  **saldoSMS**
 
 ### Parâmetros
@@ -117,11 +126,15 @@ https://requests.readthedocs.io/pt_BR/latest/user/quickstart.html)
 import requests
 # simula a requisicao GET de um browser como um URL
 requisicao = requests.get("http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&destinatario=48988888888&msg=Mensagem simples SMS")
-print('get=',requisicao.text)
+
+# imprime o status de retorno
+print(requisicao.text)
 ```
 
 ### Links
 [Editor Online Marckdown](https://jbt.github.io/markdown-editor)
+
+[Editor Online Marckdown Stackedit](https://stackedit.io)
 
 [Sintaxe Markdown Github](https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf)
 
