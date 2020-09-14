@@ -71,6 +71,7 @@ http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&msg=número-identi
 
 Código | Descrição
 ------ | -------------
+0      | Login inválido
 1      | reservado
 2      | reservado
 3      | reservado
