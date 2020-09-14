@@ -10,11 +10,12 @@ A interação com a ferramenta se dá por requisições HTTP ao endereço
 Estão disponíveis as seguintes funções:
 
 - envio de mensagens simples para um celular apenas, função **simplesSMS**
+- confere o status de envio de uma mensagem, função **statusSMS**
 - envio de mensagens simples para múltiplos celulares, função **multiSMS**
 - envio de diferentes mensagens para múltiplos celulares, função **multiMsgMultiSMS**
 - consultar crédito, função **saldoSMS**
 
-# Envio de Mensagem simples 
+# Envio de Mensagem simples
 
 Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular
 
@@ -27,27 +28,33 @@ Função  **simplesSMS**
 - `msg` texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar `<br>`
 
 ### Exemplo de URL
-``` 
+```
 http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&destinatario=48988888888&msg=Titulo<br>Nova linha
 ```
 
 ### Resposta de Retorno
+O envio de uma mensagem retorna uma string composta de dois campos separados por ";" (ponto e vírgula).  Exemplo
+```
+6;291294218
+```
+O primeiro campo faz referência à operação de envio, no exemplo acima **6** indica que a mensagem foi enviada. A lista completa de retorno está é descrita na tabela a seguir.
 
 Código | Descrição
 ------ | -------------
-1      | Usuário ou senha invalido, ou usuário cancelado
+1      | Usuário ou senha inválido, ou usuário cancelado
 2      | Usuário sem créditos na plataforma
 3      | Celular Inválido
 4      | Mensagem em branco ou com caracteres inválidos
 5      | reservado
 6      | Mensagem enviada
 
+O segundo campo retorna um número de identificação da mensagem ( número **291294218** do exemplo). Este código é útil na verificação do status de envio de uma mensagem sendo usada na função **statusSMS**. Veja Próxima seção.
 
-# Status de Mensagem 
-
-Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular
+# Status de Mensagem
 
 Função  **statusSMS**
+
+Uma chamada a esta função retorna o status de envio de uma mensagem. Requer  o número de identificação da mensagem gerado na operação de envio.
 
 ### Parâmetros
 - `user` login do usuário na plataforma Mesg
@@ -56,22 +63,22 @@ Função  **statusSMS**
 
 
 ### Exemplo de URL
-``` 
-http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&msg=codigo-numerico-de-retorno
+```
+http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&msg=número-identificação-mensagem
 ```
 
 ### Resposta de Retorno
 
 Código | Descrição
 ------ | -------------
-1      | <span style="color:gray">reservado</span>.
-2      | Reservado
-3      | Reservado
+1      | reservado
+2      | reservado
+3      | reservado
 4      | Mensagem Enviada
 5      | Erro no envio
-6      | Reservado
+6      | reservado
 7      | Sem créditos na Plataforma
-8      | Reservado
+8      | reservado
 9      | Recebimento confirmado
 
 
@@ -88,7 +95,7 @@ Função  **multiSMS**
 - `msg`máximo de 160 caracteres
 
 ### Exemplo de URL
-``` 
+```
 http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&destinatario=48988888888;48977777777&msg=Mensagem
 ```
 
@@ -101,7 +108,7 @@ Código | Descrição
 3      | Celular Inválido
 4      | Mensagem em branco ou com caracteres inválidos
 5      | reservado
-6      | Mensagem enviada	
+6      | Mensagem enviada
 
 # Envio de Múltiplas mensagens para Múltiplos Celulares
 
@@ -116,7 +123,7 @@ Função  **multiMsgMultiSMS**
 - `msg` mensagens a serem enviadas, separadas por `/n` (barra n), máximo de 160 caracteres por mensagem
 
 ### Exemplo de URL
-``` 
+```
 http://api.mesg.com.br/multiMsgMultiSMS?user=usuario&password=senha&destinatario=48988888888/n48977777777&msg=Mensagem1/nMensagem2
 ```
 ### Resposta de Retorno
@@ -127,7 +134,7 @@ Código | Descrição
 3      | Quantidade de mensagens e celulares diferentes, por exemplo 3 mensagens para 4 celulares
 4      | Mensagem em branco ou com caracteres inválidos
 5      | reservado
-6      | Mensagem enviada	
+6      | Mensagem enviada
 
 
 # Saldo de Mensagens na plataforma
@@ -141,7 +148,7 @@ Função  **saldoSMS**
 - `password` senha deste usuário
 
 ### Exemplo de URL
-``` 
+```
 http://api.mesg.com.br/saldoSMS?user=usuario&password=senha
 
 ```

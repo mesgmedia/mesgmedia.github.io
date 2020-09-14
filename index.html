@@ -54,6 +54,7 @@
 <p>Estão disponíveis as seguintes funções:</p>
 <ul>
 <li>envio de mensagens simples para um celular apenas, função <strong>simplesSMS</strong></li>
+<li>confere o status de envio de uma mensagem, função <strong>statusSMS</strong></li>
 <li>envio de mensagens simples para múltiplos celulares, função <strong>multiSMS</strong></li>
 <li>envio de diferentes mensagens para múltiplos celulares, função <strong>multiMsgMultiSMS</strong></li>
 <li>consultar crédito, função <strong>saldoSMS</strong></li>
@@ -72,6 +73,10 @@
 <pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888&amp;msg=Titulo&lt;br&gt;Nova linha
 </code></pre>
 <h3 id="resposta-de-retorno">Resposta de Retorno</h3>
+<p>O envio de uma mensagem retorna uma string composta de dois campos separados por “;” (ponto e vírgula).  Exemplo</p>
+<pre><code>6;291294218
+</code></pre>
+<p>O primeiro campo faz referência à operação de envio, no exemplo acima <strong>6</strong> indica que a mensagem foi enviada. A lista completa de retorno está é descrita na tabela a seguir.</p>
 
 <table>
 <thead>
@@ -83,7 +88,7 @@
 <tbody>
 <tr>
 <td>1</td>
-<td>Usuário ou senha invalido, ou usuário cancelado</td>
+<td>Usuário ou senha inválido, ou usuário cancelado</td>
 </tr>
 <tr>
 <td>2</td>
@@ -106,9 +111,10 @@
 <td>Mensagem enviada</td>
 </tr>
 </tbody>
-</table><h1 id="status-de-mensagem">Status de Mensagem</h1>
-<p>Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular</p>
+</table><p>O segundo campo retorna um número de identificação da mensagem ( número <strong>291294218</strong> do exemplo). Este código é útil na verificação do status de envio de uma mensagem sendo usada na função <strong>statusSMS</strong>. Veja Próxima seção.</p>
+<h1 id="status-de-mensagem">Status de Mensagem</h1>
 <p>Função  <strong>statusSMS</strong></p>
+<p>Uma chamada a esta função retorna o status de envio de uma mensagem. Requer  o número de identificação da mensagem gerado na operação de envio.</p>
 <h3 id="parâmetros-1">Parâmetros</h3>
 <ul>
 <li><code>user</code> login do usuário na plataforma Mesg</li>
@@ -116,7 +122,7 @@
 <li><code>id</code> código de retorno da mensagem</li>
 </ul>
 <h3 id="exemplo-de-url-1">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;msg=codigo-numerico-de-retorno
+<pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;msg=número-identificação-mensagem
 </code></pre>
 <h3 id="resposta-de-retorno-1">Resposta de Retorno</h3>
 
