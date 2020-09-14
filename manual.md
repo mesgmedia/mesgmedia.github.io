@@ -42,6 +42,39 @@ Código | Descrição
 5      | reservado
 6      | Mensagem enviada
 
+
+# Status de Mensagem 
+
+Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular
+
+Função  **statusSMS**
+
+### Parâmetros
+- `user` login do usuário na plataforma Mesg
+- `password` senha deste usuário
+- `id` código de retorno da mensagem
+
+
+### Exemplo de URL
+``` 
+http://api.mesg.com.br/simplesSMS?user=usuario&password=senha&msg=codigo-numerico-de-retorno
+```
+
+### Resposta de Retorno
+
+Código | Descrição
+------ | -------------
+1      | <span style="color:gray">reservado</span>.
+2      | Reservado
+3      | Reservado
+4      | Mensagem Enviada
+5      | Erro no envio
+6      | Reservado
+7      | Sem créditos na Plataforma
+8      | Reservado
+9      | Recebimento confirmado
+
+
 # Envio de Mensagem simples Para Múltiplos Celulares
 
 Usado para enviar a mesma mensagem para múltiplos celulares
