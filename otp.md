@@ -80,3 +80,24 @@ Código | Descrição
 1702      | um dos parâmetros faltando ou OTP não é numérico
 1703      | falha na autentificação
 [comment]: <> (1706 - xxx? ver diferença com 104 )
+
+### Exemplo de chamada URL
+```
+http://api.mesg.com.br/v2/checkOTP?user=xxxx&password=yyy&destinatario=48988887777&otp=435687
+```
+## Exemplo em PHP
+
+```php
+<?php
+$user="xxxx";
+$password="yyyy";
+$destinatario="48988887777";
+$msg="Seu numero de acesso: %m";
+$tamanho=6;  //número gerado será de 6 dígitos
+$tempo=420;  //com validade de 7 minutos (420 segundos)
+
+$result = file_get_contents("http://api.mesg.com.br/v2/sendOTP?user=".$user."&password=".$password."&destinatario=".$destinatario."&msg=".urlencode($msg)."&tamanho=".$tamanho."&tempo=".$tempo);
+
+echo $result;
+
+```

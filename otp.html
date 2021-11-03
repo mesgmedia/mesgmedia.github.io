@@ -22,6 +22,7 @@
 <li><a href="#validação-do-número-otp">Validação do Número OTP</a>
 <ul>
 <li></li>
+<li><a href="#exemplo-em-php">Exemplo em PHP</a></li>
 </ul>
 </li>
 </ul>
@@ -148,7 +149,24 @@ O terceiro campo <strong>ba6cce34-8806-4f74-a2da-6533cbe15cec</strong>  é um n�
 <td>falha na autentificação</td>
 </tr>
 </tbody>
-</table>
+</table><h3 id="exemplo-de-chamada-url">Exemplo de chamada URL</h3>
+<pre><code>http://api.mesg.com.br/v2/checkOTP?user=xxxx&amp;password=yyy&amp;destinatario=48988887777&amp;otp=435687
+</code></pre>
+<h2 id="exemplo-em-php">Exemplo em PHP</h2>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$user</span><span class="token operator">=</span><span class="token string">"xxxx"</span><span class="token punctuation">;</span>
+<span class="token variable">$password</span><span class="token operator">=</span><span class="token string">"yyyy"</span><span class="token punctuation">;</span>
+<span class="token variable">$destinatario</span><span class="token operator">=</span><span class="token string">"48988887777"</span><span class="token punctuation">;</span>
+<span class="token variable">$msg</span><span class="token operator">=</span><span class="token string">"Seu numero de acesso: %m"</span><span class="token punctuation">;</span>
+<span class="token variable">$tamanho</span><span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">;</span>  <span class="token comment">//número gerado será de 6 dígitos</span>
+<span class="token variable">$tempo</span><span class="token operator">=</span><span class="token number">420</span><span class="token punctuation">;</span>  <span class="token comment">//com validade de 7 minutos (420 segundos)</span>
+
+<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string">"http://api.mesg.com.br/v2/sendOTP?user="</span><span class="token punctuation">.</span><span class="token variable">$user</span><span class="token punctuation">.</span><span class="token string">"&amp;password="</span><span class="token punctuation">.</span><span class="token variable">$password</span><span class="token punctuation">.</span><span class="token string">"&amp;destinatario="</span><span class="token punctuation">.</span><span class="token variable">$destinatario</span><span class="token punctuation">.</span><span class="token string">"&amp;msg="</span><span class="token punctuation">.</span><span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token variable">$msg</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"&amp;tamanho="</span><span class="token punctuation">.</span><span class="token variable">$tamanho</span><span class="token punctuation">.</span><span class="token string">"&amp;tempo="</span><span class="token punctuation">.</span><span class="token variable">$tempo</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$result</span><span class="token punctuation">;</span>
+
+</span></code></pre>
+
     </div>
   </div>
 </body>
