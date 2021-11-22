@@ -172,7 +172,7 @@ $msg="Seu numero de acesso: %m";
 $tamanho=6;  //número gerado será de 6 dígitos
 $tempo=420;  //com validade de 7 minutos (420 segundos)
 
-$result = file_get_contents("http://api.mesg.com.br/v2/sendOTP?user=".$user."&password=".$password."&destinatario=".$destinatario."&msg=".urlencode($msg)."&tamanho=".$tamanho."&tempo=".$tempo);
+$result = file_get_contents("https://api.mesg.com.br/v2/sendOTP?user=".$user."&password=".$password."&destinatario=".$destinatario."&msg=".urlencode($msg)."&tamanho=".$tamanho."&tempo=".$tempo);
 
 echo $result;
 
