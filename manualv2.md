@@ -146,6 +146,7 @@ Código | Descrição
 https://api.mesg.com.br/v2/checkOTP?user=xxxx&password=yyy&destinatario=48988887777&otp=435687
 ```
 
+# Exemplos
 
 ## Exemplo em Python enviando sms Simples
 Este exemplo usa a linguagem Python para enviar uma mensagem por sms. Necessário uso da biblioteca [requests](
