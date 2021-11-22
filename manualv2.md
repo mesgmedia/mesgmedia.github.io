@@ -2,6 +2,8 @@
 [www.mesg.com.br](http://www.mesg.com.br)
 API v2.
 
+# Apresentação
+
 A interação com a ferramenta se dá por requisições HTTPS ao endereço
 
 `https://api.mesg.com.br/v2/<função>`
