@@ -2,7 +2,7 @@
 
 # API de SMS One Time Password (OTP)
 
-A interação com a ferramenta se dá por requisições HTTP ao endereço
+Com esta opção é possível gerar uma senha de uso único e enviá-la por SMS. A interação com a ferramenta se dá por requisições HTTP ao endereço
 
 `http://api.mesg.com.br/v2/<função>`
 

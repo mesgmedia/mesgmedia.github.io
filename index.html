@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>manual.md</title>
+  <title>manualv2.md</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
@@ -13,31 +13,26 @@
     <div class="stackedit__toc">
       
 <ul>
-<li><a href="#envio-de-sms-via-web">Envio de SMS via Web</a></li>
 <li><a href="#envio-de-mensagem-simples">Envio de Mensagem simples</a>
 <ul>
 <li></li>
 </ul>
 </li>
-<li><a href="#status-de-mensagem">Status de Mensagem</a>
+<li><a href="#consulta-saldo-de-mensagens">Consulta Saldo de Mensagens</a>
 <ul>
 <li></li>
 </ul>
 </li>
-<li><a href="#envio-de-mensagem-simples-para-múltiplos-celulares">Envio de Mensagem simples Para Múltiplos Celulares</a>
+<li><a href="#gerar-número-otp">Gerar Número OTP</a>
 <ul>
 <li></li>
 </ul>
 </li>
-<li><a href="#envio-de-múltiplas-mensagens-para-múltiplos-celulares">Envio de Múltiplas mensagens para Múltiplos Celulares</a>
+<li><a href="#validação-do-número-otp">Validação do Número OTP</a>
 <ul>
 <li></li>
-</ul>
-</li>
-<li><a href="#saldo-de-mensagens-na-plataforma">Saldo de Mensagens na plataforma</a>
-<ul>
-<li></li>
-<li><a href="#exemplo-em-python">Exemplo em Python</a></li>
+<li><a href="#exemplo-em-python-enviando-sms-simples">Exemplo em Python enviando sms Simples</a></li>
+<li><a href="#exemplo-de-token-otp-em-php">Exemplo de token OTP em PHP</a></li>
 </ul>
 </li>
 </ul>
@@ -47,36 +42,35 @@
   <div class="stackedit__right">
     <div class="stackedit__html">
       <p><img src="http://www.mesg.com.br/wp-content/uploads/2020/05/mesglogo.png" alt="Image"><br>
-<a href="http://www.mesg.com.br">www.mesg.com.br</a></p>
-<h1 id="envio-de-sms-via-web">Envio de SMS via Web</h1>
-<p>A interação com a ferramenta se dá por requisições HTTP ao endereço</p>
-<p><code>http://api.mesg.com.br/&lt;função&gt;</code></p>
+<a href="http://www.mesg.com.br">www.mesg.com.br</a><br>
+API v2.</p>
+<p>A interação com a ferramenta se dá por requisições HTTPS ao endereço</p>
+<p><code>https://api.mesg.com.br/v2/&lt;função&gt;</code></p>
 <p>Estão disponíveis as seguintes funções:</p>
 <ul>
-<li>envio de mensagens simples para um celular apenas, função <strong>simplesSMS</strong></li>
-<li>confere o status de envio de uma mensagem, função <strong>statusSMS</strong></li>
-<li>envio de mensagens simples para múltiplos celulares, função <strong>multiSMS</strong></li>
-<li>envio de diferentes mensagens para múltiplos celulares, função <strong>multiMsgMultiSMS</strong></li>
-<li>consultar crédito, função <strong>saldoSMS</strong></li>
+<li><strong>simplesSMS</strong> envio de mensagens simples para um celular apenas</li>
+<li><strong>saldoSMS</strong> consultar crédito</li>
+<li><strong>sendOTP</strong> gera um número OTP e envia a um celular específico</li>
+<li><strong>checkOTP</strong> checa a validade de um número OTP</li>
 </ul>
 <h1 id="envio-de-mensagem-simples">Envio de Mensagem simples</h1>
-<p>Uso mais básico, esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular</p>
+<p>Esta chamada envia uma mensagem SMS de até 160 caracteres para um único celular</p>
 <p>Função  <strong>simplesSMS</strong></p>
 <h3 id="parâmetros">Parâmetros</h3>
 <ul>
 <li><code>user</code> login do usuário na plataforma Mesg</li>
 <li><code>password</code> senha deste usuário</li>
-<li><code>detinatario</code> número a ser enviadono no formato ddd+número</li>
-<li><code>msg</code> texto a ser enviado, máximo de 160 caracteres, para quebra de linhas usar <code>&lt;br&gt;</code></li>
+<li><code>detinatario</code> número a ser enviado no no formato ddd+número</li>
+<li><code>msg</code> texto a ser enviado, máximo de 160 caracteres</li>
 </ul>
 <h3 id="exemplo-de-url">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888&amp;msg=Titulo&lt;br&gt;Nova linha
+<pre><code>https://api.mesg.com.br/v2/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888&amp;msg=mensagem
 </code></pre>
 <h3 id="resposta-de-retorno">Resposta de Retorno</h3>
-<p>O envio de uma mensagem retorna uma string composta de dois campos separados por “;” (ponto e vírgula).  Exemplo</p>
-<pre><code>6;291294218
+<p>O envio de uma mensagem retorna uma string composta de três campos separados por “|” (barra vertical).  Exemplo</p>
+<pre><code>1701|5548988887777|ba6cce34-8806-4f74-a2da-6533cbe15cec
 </code></pre>
-<p>O primeiro campo faz referência à operação de envio, no exemplo acima <strong>6</strong> indica que a mensagem foi enviada. A lista completa de retorno está é descrita na tabela a seguir.</p>
+<p>O primeiro campo faz referência à operação de envio, no exemplo acima <strong>1701</strong> indica que a mensagem foi enviada. A lista completa de retorno está é descrita na tabela a seguir.</p>
 
 <table>
 <thead>
@@ -87,108 +81,69 @@
 </thead>
 <tbody>
 <tr>
-<td>1</td>
+<td>1701</td>
+<td>Mensagem enviada com sucesso</td>
+</tr>
+<tr>
+<td>1702</td>
+<td>URL inválida, um dos parâmetros não foram fornecidos ou estão em branco</td>
+</tr>
+<tr>
+<td>1703</td>
 <td>Usuário ou senha inválido, ou usuário cancelado</td>
 </tr>
 <tr>
-<td>2</td>
+<td>1705</td>
+<td>Mensagem inválida</td>
+</tr>
+<tr>
+<td>1706</td>
+<td>Destinatário inválido</td>
+</tr>
+<tr>
+<td>1710</td>
+<td>Erro interno</td>
+</tr>
+<tr>
+<td>1025</td>
 <td>Usuário sem créditos na plataforma</td>
 </tr>
-<tr>
-<td>3</td>
-<td>Celular Inválido</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Mensagem em branco ou com caracteres inválidos</td>
-</tr>
-<tr>
-<td>5</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Mensagem enviada</td>
-</tr>
 </tbody>
-</table><p>O segundo campo retorna um número de identificação da mensagem ( número <strong>291294218</strong> do exemplo). Este código é útil na verificação do status de envio de uma mensagem sendo usada na função <strong>statusSMS</strong>. Veja Próxima seção.</p>
-<h1 id="status-de-mensagem">Status de Mensagem</h1>
-<p>Função  <strong>statusSMS</strong></p>
-<p>Uma chamada a esta função retorna o status de envio de uma mensagem. Requer  o número de identificação da mensagem gerado na operação de envio.</p>
+</table><p>O segundo campo <strong>5548988887777</strong> no exemplo acima indica o número que foi enviado a mensagem.<br>
+O terceiro campo <strong>ba6cce34-8806-4f74-a2da-6533cbe15cec</strong>  é um número de identificação da mensagem.</p>
+<h1 id="consulta-saldo-de-mensagens">Consulta Saldo de Mensagens</h1>
+<p>Consulta o saldo de mensagens sms disponíveis na plataforma</p>
+<p>Função  <strong>saldoSMS</strong></p>
 <h3 id="parâmetros-1">Parâmetros</h3>
+<ul>
+<li><code>user</code>  login do usuário na plataforma Mesg</li>
+<li><code>password</code> senha deste usuário</li>
+</ul>
+<h3 id="exemplo-de-url-1">Exemplo de URL</h3>
+<pre><code>https://api.mesg.com.br/v2/saldoSMS?user=usuario&amp;password=senha
+</code></pre>
+<h3 id="resposta-de-retorno-1">Resposta de Retorno</h3>
+<p>Informa a quantidade disponível de sms na plataforma.</p>
+<h1 id="gerar-número-otp">Gerar Número OTP</h1>
+<p>Esta chamada envia uma mensagem SMS a um celular específico contendo um token OTP.</p>
+<p>Função  <strong>SendOTP</strong></p>
+<h3 id="parâmetros-2">Parâmetros</h3>
 <ul>
 <li><code>user</code> login do usuário na plataforma Mesg</li>
 <li><code>password</code> senha deste usuário</li>
-<li><code>id</code> código de retorno da mensagem</li>
-</ul>
-<h3 id="exemplo-de-url-1">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;msg=número-identificação-mensagem
-</code></pre>
-<h3 id="resposta-de-retorno-1">Resposta de Retorno</h3>
-
-<table>
-<thead>
-<tr>
-<th>Código</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>Login inválido</td>
-</tr>
-<tr>
-<td>1</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>2</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>3</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Mensagem Enviada</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Erro no envio</td>
-</tr>
-<tr>
-<td>6</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Sem créditos na Plataforma</td>
-</tr>
-<tr>
-<td>8</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>9</td>
-<td>Recebimento confirmado</td>
-</tr>
-</tbody>
-</table><h1 id="envio-de-mensagem-simples-para-múltiplos-celulares">Envio de Mensagem simples Para Múltiplos Celulares</h1>
-<p>Usado para enviar a mesma mensagem para múltiplos celulares</p>
-<p>Função  <strong>multiSMS</strong></p>
-<h3 id="parâmetros-2">Parâmetros</h3>
-<ul>
-<li><code>user</code>  login do usuário na plataforma Mesg</li>
-<li><code>password</code> senha deste usuário</li>
-<li><code>detinatario</code> números a serem enviados, separados por <code>;</code> (ponto e vírcula) no formato ddd+número</li>
-<li><code>msg</code>máximo de 160 caracteres</li>
+<li><code>detinatario</code> número celular o qual será enviado o número OTP,  formato ddd+número</li>
+<li><code>msg</code> texto a ser enviado, máximo de 160 caracteres. A  mensagem de template deverá ter o caracter <code>"%m"</code>. o token OTP gerado toma esta posição na mensagem final. A mensagem dever ser URL encoded.</li>
+<li><code>tamanho</code> tamanho do número OTP (até 9 caracteres)</li>
+<li><code>tempo</code> tempo de validade do número OTP em segundos</li>
 </ul>
 <h3 id="exemplo-de-url-2">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888;48977777777&amp;msg=Mensagem
+<pre><code>https://api.mesg.com.br/v2/sendOTP?user=xxxx&amp;password=yyyy&amp;destinatario=48988887777&amp;msg=&amp;Seu número de acesso a Mesg: %m&amp;tamanho=6&amp;tempo=480
 </code></pre>
 <h3 id="resposta-de-retorno-2">Resposta de Retorno</h3>
+<p>O envio bem sucedido de uma mensagem retorna uma string composta de três campos separados por “|” (barra vertical).  Exemplo</p>
+<pre><code>1701|5548988887777|ba6cce34-8806-4f74-a2da-6533cbe15cec
+</code></pre>
+<p>O primeiro campo faz referência à operação de envio, no exemplo acima <strong>1701</strong> indica que a mensagem foi enviada com sucesso. A lista completa dos códigos de retorno estão descritas na tabela a seguir.</p>
 
 <table>
 <thead>
@@ -199,43 +154,50 @@
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Usuário ou senha invalido, ou usuário cancelado</td>
+<td>1701</td>
+<td>Mensagem enviada com sucesso</td>
 </tr>
 <tr>
-<td>2</td>
+<td>1702</td>
+<td>URL inválida, um dos parâmetros não foram fornecidos ou estão em branco</td>
+</tr>
+<tr>
+<td>1703</td>
+<td>Falha na autenticação do usuário</td>
+</tr>
+<tr>
+<td>1705</td>
+<td>Mensagem não contém “%m”</td>
+</tr>
+<tr>
+<td>1706</td>
+<td>Destinatário inválido</td>
+</tr>
+<tr>
+<td>1710</td>
+<td>Erro interno</td>
+</tr>
+<tr>
+<td>1025</td>
 <td>Usuário sem créditos na plataforma</td>
 </tr>
-<tr>
-<td>3</td>
-<td>Celular Inválido</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Mensagem em branco ou com caracteres inválidos</td>
-</tr>
-<tr>
-<td>5</td>
-<td>reservado</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Mensagem enviada</td>
-</tr>
 </tbody>
-</table><h1 id="envio-de-múltiplas-mensagens-para-múltiplos-celulares">Envio de Múltiplas mensagens para Múltiplos Celulares</h1>
-<p>Use este opção para enviar mensagens diferentes para números diferentes</p>
-<p>Função  <strong>multiMsgMultiSMS</strong></p>
+</table><p>O segundo campo <strong>5548988887777</strong> no exemplo acima indica o número que foi enviado a mensagem.<br>
+O terceiro campo <strong>ba6cce34-8806-4f74-a2da-6533cbe15cec</strong>  é um número de identificação da mensagem.</p>
+<h1 id="validação-do-número-otp">Validação do Número OTP</h1>
+<p>Função  <strong>checkOTP</strong></p>
+<p>Uma chamada a esta função retorna o status de uma mensagem OTP enviado. Requer o token OTP recebido pelo usuário na operação de envio.</p>
 <h3 id="parâmetros-3">Parâmetros</h3>
 <ul>
-<li><code>user</code>  login do usuário na plataforma Mesg</li>
+<li><code>user</code> login do usuário na plataforma Mesg</li>
 <li><code>password</code> senha deste usuário</li>
-<li><code>detinatario</code> números a serem enviados, separados por <code>/n</code> (barra n) no formato ddd+número</li>
-<li><code>msg</code> mensagens a serem enviadas, separadas por <code>/n</code> (barra n), máximo de 160 caracteres por mensagem</li>
+<li><code>detinatario</code> número celular que foi enviado o número OTP</li>
+<li><code>otp</code> token OTP recebido a ser validado.</li>
 </ul>
 <h3 id="exemplo-de-url-3">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/multiMsgMultiSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888/n48977777777&amp;msg=Mensagem1/nMensagem2
+<pre><code>https://api.mesg.com.br/v2/checkOTP?user=xxxx&amp;password=yyyy&amp;destinatario=48988887777&amp;otp=435687
 </code></pre>
+<p>Se o token OTP for validado corretamente um código <strong>101</strong> é retornado indicando sucesso da operação.  A lista completa dos códigos de retorno estão descritas na tabela a seguir.</p>
 <h3 id="resposta-de-retorno-3">Resposta de Retorno</h3>
 
 <table>
@@ -247,75 +209,57 @@
 </thead>
 <tbody>
 <tr>
-<td>1</td>
-<td>Usuário ou senha inválido, ou usuário cancelado</td>
+<td>101</td>
+<td>token OTP validado com sucesso</td>
 </tr>
 <tr>
-<td>2</td>
-<td>Usuário sem créditos na plataforma</td>
+<td>102</td>
+<td>OTP expirado</td>
 </tr>
 <tr>
-<td>3</td>
-<td>Quantidade de mensagens e celulares diferentes, por exemplo 3 mensagens para 4 celulares</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Mensagem em branco ou com caracteres inválidos</td>
-</tr>
-<tr>
-<td>5</td>
+<td>103</td>
 <td>reservado</td>
 </tr>
 <tr>
-<td>6</td>
-<td>Mensagem enviada</td>
+<td>104</td>
+<td>número celular não encontrado</td>
+</tr>
+<tr>
+<td>1702</td>
+<td>um dos parâmetros faltando ou OTP não é numérico</td>
+</tr>
+<tr>
+<td>1703</td>
+<td>falha na autentificação</td>
 </tr>
 </tbody>
-</table><h1 id="saldo-de-mensagens-na-plataforma">Saldo de Mensagens na plataforma</h1>
-<p>Consultar o saldo de mensagens disponíveis na plataforma</p>
-<p>Função  <strong>saldoSMS</strong></p>
-<h3 id="parâmetros-4">Parâmetros</h3>
-<ul>
-<li><code>user</code>  login do usuário na plataforma Mesg</li>
-<li><code>password</code> senha deste usuário</li>
-</ul>
-<h3 id="exemplo-de-url-4">Exemplo de URL</h3>
-<pre><code>http://api.mesg.com.br/saldoSMS?user=usuario&amp;password=senha
-
+</table><h3 id="exemplo-de-chamada-url">Exemplo de chamada URL</h3>
+<pre><code>https://api.mesg.com.br/v2/checkOTP?user=xxxx&amp;password=yyy&amp;destinatario=48988887777&amp;otp=435687
 </code></pre>
-<h3 id="resposta-de-retorno-4">Resposta de Retorno</h3>
-
-<table>
-<thead>
-<tr>
-<th>Código</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Usuário ou senha inválido, ou usuário cancelado</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Número 2 seguido da quantidade de créditos</td>
-</tr>
-</tbody>
-</table><h2 id="exemplo-em-python">Exemplo em Python</h2>
-<p>necessário uso da biblioteca <a href="https://requests.readthedocs.io/pt_BR/latest/user/quickstart.html">requests</a></p>
+<h2 id="exemplo-em-python-enviando-sms-simples">Exemplo em Python enviando sms Simples</h2>
+<p>Este exemplo usa a linguagem Python para enviar uma mensagem por sms. Necessário uso da biblioteca <a href="https://requests.readthedocs.io/pt_BR/latest/user/quickstart.html">requests</a></p>
 <pre class=" language-python"><code class="prism  language-python"><span class="token keyword">import</span> requests
 <span class="token comment"># simula a requisicao GET de um browser como um URL</span>
-requisicao <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"http://api.mesg.com.br/simplesSMS?user=usuario&amp;password=senha&amp;destinatario=48988888888&amp;msg=Mensagem simples SMS"</span><span class="token punctuation">)</span>
-
+requisicao <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>"
+https<span class="token punctuation">:</span><span class="token operator">//</span>api<span class="token punctuation">.</span>mesg<span class="token punctuation">.</span>com<span class="token punctuation">.</span>br<span class="token operator">/</span>v2<span class="token operator">/</span>simplesSMS?user<span class="token operator">=</span>usuario<span class="token operator">&amp;</span>password<span class="token operator">=</span>senha<span class="token operator">&amp;</span>destinatario<span class="token operator">=</span><span class="token number">48988888888</span><span class="token operator">&amp;</span>msg<span class="token operator">=</span>Mensagem simples SMS"<span class="token punctuation">)</span>
 <span class="token comment"># imprime o status de retorno</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>requisicao<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
 </code></pre>
-<h3 id="links">Links</h3>
-<p><a href="https://jbt.github.io/markdown-editor">Editor Online Marckdown</a></p>
-<p><a href="https://stackedit.io">Editor Online Marckdown Stackedit</a></p>
-<p><a href="https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf">Sintaxe Markdown Github</a></p>
-<p><a href="https://guides.github.com/features/mastering-markdown/">Mastering Markdown</a></p>
+<h2 id="exemplo-de-token-otp-em-php">Exemplo de token OTP em PHP</h2>
+<p>Neste exemplo é gerado um token OTP de 6 dígitos com duração de 7 minutos  que será enviado ao número fictício 48988887777. Neste período de tempo a mensagem precisa ser validada com uma chamada da função <strong>checkOTP</strong>.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$user</span><span class="token operator">=</span><span class="token string">"xxxx"</span><span class="token punctuation">;</span>
+<span class="token variable">$password</span><span class="token operator">=</span><span class="token string">"yyyy"</span><span class="token punctuation">;</span>
+<span class="token variable">$destinatario</span><span class="token operator">=</span><span class="token string">"48988887777"</span><span class="token punctuation">;</span>
+<span class="token variable">$msg</span><span class="token operator">=</span><span class="token string">"Seu numero de acesso: %m"</span><span class="token punctuation">;</span>
+<span class="token variable">$tamanho</span><span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">;</span>  <span class="token comment">//número gerado será de 6 dígitos</span>
+<span class="token variable">$tempo</span><span class="token operator">=</span><span class="token number">420</span><span class="token punctuation">;</span>  <span class="token comment">//com validade de 7 minutos (420 segundos)</span>
+
+<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string">"http://api.mesg.com.br/v2/sendOTP?user="</span><span class="token punctuation">.</span><span class="token variable">$user</span><span class="token punctuation">.</span><span class="token string">"&amp;password="</span><span class="token punctuation">.</span><span class="token variable">$password</span><span class="token punctuation">.</span><span class="token string">"&amp;destinatario="</span><span class="token punctuation">.</span><span class="token variable">$destinatario</span><span class="token punctuation">.</span><span class="token string">"&amp;msg="</span><span class="token punctuation">.</span><span class="token function">urlencode</span><span class="token punctuation">(</span><span class="token variable">$msg</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token string">"&amp;tamanho="</span><span class="token punctuation">.</span><span class="token variable">$tamanho</span><span class="token punctuation">.</span><span class="token string">"&amp;tempo="</span><span class="token punctuation">.</span><span class="token variable">$tempo</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token variable">$result</span><span class="token punctuation">;</span>
+
+</span></code></pre>
 
     </div>
   </div>
